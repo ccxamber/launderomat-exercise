@@ -1,31 +1,43 @@
 import React from 'react'
 
+const defaultOccasions = [
+  { time: '06:00-09:00', reserved: false },
+  { time: '09:00-12:00', reserved: false },
+  { time: '12:00-15:00', reserved: false },
+  { time: '15:00-18:00', reserved: false },
+]
+
 class Day extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      occasion1: { time: '06:00-09:00', reserved: false },
-      occasion2: { time: '09:00-12:00', reserved: false },
-      occasion3: { time: '12:00-15:00', reserved: false },
-      occasion4: { time: '15:00-18:00', reserved: false },
-    }
-  }
-  onBooking(weekNumber, weekday, key) {
+  onBooking(weekNumber, weekday) {
     console.log(weekday)
     console.log(weekNumber)
-    this.setState((prev) => ({ [key]: { ...prev[key], reserved: true } }))
+
+  }
+  buildDay(bookedOccasions) {
+    console.log(bookedOccasions)
+    if (bookedOccasions.length === 0) {
+      return defaultOccasions
+    } else {
+      return defaultOccasions.map((occasion, index) => {
+        if (bookedOccasions.includes(index)) {
+          return { ...occasion, reserved: true }
+        } else { return occasion }
+      })
+      //return bookedOccasions.map((bookedOccasion) => ({ ...defaultOccasions, [bookedOccasion]: {reserved: true }))
+    }
   }
   render() {
+    const day = this.buildDay(this.props.bookedOccasions)
     return (
       <div>
         <h1>{this.props.weekday}</h1>
-        {this.props.open ? Object.keys(this.state).map((key) => {
+        {this.props.open ? day.map((occasion) => {
           return (
             <div>
-              <p>{this.state[key].time}</p>
+              <p>{occasion.time}</p>
               <button
-                onClick={() => this.onBooking(this.props.weekNumber, this.props.weekday, key)}
-                disabled={this.state[key].reserved
+                onClick={() => this.onBooking(this.props.weekNumber, this.props.weekday)}
+                disabled={occasion.reserved
                 }>
                 boka</button>
             </div>

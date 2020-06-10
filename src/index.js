@@ -19,7 +19,7 @@ class Root extends React.Component {
     super()
     this.state = {
       weekNumber: 24,
-      bookedOccasions: [{ weekNumber: 24, weekday: 'Måndag', occasion: 'occasion3' }]
+      bookedOccasions: [{ weekNumber: 24, weekday: 'Måndag', occasionIndex: 2 }]
     }
   }
   changeWeekNumber(direction) {
@@ -35,7 +35,7 @@ class Root extends React.Component {
     const bookings = this.state.bookedOccasions
       .filter((bookedOccasion) => bookedOccasion.weekNumber === weekNumber)
       .filter((bookedOccasion) => bookedOccasion.weekday === weekday)
-    return bookings.map((booking) => booking.occasion)
+    return bookings.map((booking) => booking.occasionIndex)
   }
   render() {
     return (
