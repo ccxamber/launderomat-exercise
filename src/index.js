@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Day from './Day'
+import Modal from './Modal'
 
 
 const weekdays = [
@@ -18,6 +19,7 @@ class Root extends React.Component {
   constructor() {
     super()
     this.state = {
+      stagedOccasion: null,
       weekNumber: 24,
       bookedOccasions: [{ weekNumber: 24, weekday: 'Måndag', occasionIndex: 2 }]
     }
@@ -45,6 +47,10 @@ class Root extends React.Component {
         occasionIndex: occasionIndex
       }]
     }))
+    this.setState(() => ({ stagedOccasion: null }))
+  }
+  onStage(weekday, occasionIndex) {
+    this.setState({ stagedOccasion: { weekday: weekday, occasionIndex: occasionIndex } })
   }
   render() {
     return (
@@ -63,7 +69,7 @@ class Root extends React.Component {
             return (
               <li>
                 <Day
-                  onBooking={(occasionIndex) => this.onBooking(this.state.weekNumber, weekday.name, occasionIndex)}
+                  onStage={(occasionIndex) => this.onStage(weekday.name, occasionIndex)}
                   bookedOccasions={this.sortBookedOccasions(this.state.weekNumber, weekday.name)}
                   weekNumber={this.state.weekNumber}
                   weekday={weekday.name}
@@ -73,6 +79,11 @@ class Root extends React.Component {
             )
           })}
         </ul>
+        {!(this.state.stagedOccasion === null) && (
+          <Modal
+            onBookingett={() => this.onBooking(this.state.weekNumber, this.state.stagedOccasion.weekday, this.state.stagedOccasion.occasionIndex)}
+          />
+        )}
       </div>
     )
   }

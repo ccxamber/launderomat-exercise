@@ -30,7 +30,7 @@ class Day extends React.Component {
             <div>
               <p>{occasion.time}</p>
               <button
-                onClick={() => this.props.onBooking(index)}
+                onClick={() => this.props.onStage(index)}
                 disabled={occasion.reserved
                 }>
                 boka</button>
