@@ -1,23 +1,25 @@
 import React from 'react'
 
-const occasions = [
-  { time: '06:00-09:00', reserved: false },
-  { time: '09:00-12:00', reserved: false },
-  { time: '12:00-15:00', reserved: false },
-  { time: '15:00-18:00', reserved: false },
-]
-
 class Day extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      occation1: { time: '06:00-09:00', reserved: false },
+      occation2: { time: '09:00-12:00', reserved: false },
+      occation3: { time: '12:00-15:00', reserved: false },
+      occation4: { time: '15:00-18:00', reserved: false },
+    }
+  }
   render() {
     return (
       <div>
         <h1>{this.props.weekday}</h1>
-        {occasions.map((occasion) => {
+        {Object.keys(this.state).map((key) => {
           return (
             <div>
-              <p>{occasion.time}</p>
+              <p>{this.state[key].time}</p>
               <button
-                disabled={occasion.reserved
+                disabled={this.state[key].reserved
                 }>
                 boka</button>
             </div>
