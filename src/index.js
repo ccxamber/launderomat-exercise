@@ -17,7 +17,10 @@ const weekdays = [
 class Root extends React.Component {
   constructor() {
     super()
-    this.state = { weekNumber: 24 }
+    this.state = {
+      weekNumber: 24,
+      bookedOccasions: [{ weekNumber: 24, weekday: 'Måndag', occasion: 'occasion3' }]
+    }
   }
   changeWeekNumber(direction) {
     const newNumber = this.state.weekNumber + direction
@@ -27,6 +30,12 @@ class Root extends React.Component {
     } else {
       this.setState((prev) => ({ weekNumber: newNumber }))
     }
+  }
+  sortBookedOccasions(weekNumber, weekday) {
+    const bookings = this.state.bookedOccasions
+      .filter((bookedOccasion) => bookedOccasion.weekNumber === weekNumber)
+      .filter((bookedOccasion) => bookedOccasion.weekday === weekday)
+    return bookings.map((booking) => booking.occasion)
   }
   render() {
     return (
@@ -45,6 +54,7 @@ class Root extends React.Component {
             return (
               <li>
                 <Day
+                  bookedOccasions={this.sortBookedOccasions(this.state.weekNumber, weekday.name)}
                   weekNumber={this.state.weekNumber}
                   weekday={weekday.name}
                   open={weekday.open}
