@@ -1,10 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import Day from './Day'
+
 class Root extends React.Component {
   render() {
     return (
-      <h1>Neon</h1>
+      <ul>
+        <li>
+          <div>
+            <Day weekday="måndag" />
+          </div>
+        </li>
+      </ul>
     )
   }
 }
