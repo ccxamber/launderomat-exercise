@@ -17,15 +17,28 @@ const weekdays = [
 class Root extends React.Component {
   constructor() {
     super()
-    this.state = { weekNumber: 1 }
+    this.state = { weekNumber: 24 }
+  }
+  changeWeekNumber(direction) {
+    const newNumber = this.state.weekNumber + direction
+    if (newNumber < 1) {
+    } else if (newNumber > 52) {
+
+    } else {
+      this.setState((prev) => ({ weekNumber: newNumber }))
+    }
   }
   render() {
     return (
       <div>
         <div>
-          <button>&lt;</button>
+          <button
+            onClick={() => this.changeWeekNumber(-1)}
+          >&lt;</button>
           <h1>{this.state.weekNumber}</h1>
-          <button>&gt;</button>
+          <button
+            onClick={() => this.changeWeekNumber(+1)}
+          >&gt;</button>
         </div>
         <ul>
           {weekdays.map((weekday) => {
