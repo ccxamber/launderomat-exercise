@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 
 import Day from './Day'
 
+
 const weekdays = [
   { name: 'Måndag', open: true },
   { name: 'Tisdag', open: true },
@@ -14,20 +15,32 @@ const weekdays = [
 ]
 
 class Root extends React.Component {
+  constructor() {
+    super()
+    this.state = { weekNumber: 1 }
+  }
   render() {
     return (
-      <ul>
-        {weekdays.map((weekday) => {
-          return (
-            <li>
-              <Day
-                weekday={weekday.name}
-                open={weekday.open}
-              />
-            </li>
-          )
-        })}
-      </ul>
+      <div>
+        <div>
+          <button>&lt;</button>
+          <h1>{this.state.weekNumber}</h1>
+          <button>&gt;</button>
+        </div>
+        <ul>
+          {weekdays.map((weekday) => {
+            return (
+              <li>
+                <Day
+                  weekNumber={this.state.weekNumber}
+                  weekday={weekday.name}
+                  open={weekday.open}
+                />
+              </li>
+            )
+          })}
+        </ul>
+      </div>
     )
   }
 }

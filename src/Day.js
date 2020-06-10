@@ -10,8 +10,9 @@ class Day extends React.Component {
       occasion4: { time: '15:00-18:00', reserved: false },
     }
   }
-  onBooking(weekday, key) {
+  onBooking(weekNumber, weekday, key) {
     console.log(weekday)
+    console.log(weekNumber)
     this.setState((prev) => ({ [key]: { ...prev[key], reserved: true } }))
   }
   render() {
@@ -23,7 +24,7 @@ class Day extends React.Component {
             <div>
               <p>{this.state[key].time}</p>
               <button
-                onClick={() => this.onBooking(this.props.weekday, key)}
+                onClick={() => this.onBooking(this.props.weekNumber, this.props.weekday, key)}
                 disabled={this.state[key].reserved
                 }>
                 boka</button>
