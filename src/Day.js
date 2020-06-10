@@ -4,10 +4,10 @@ class Day extends React.Component {
   constructor() {
     super()
     this.state = {
-      occation1: { time: '06:00-09:00', reserved: false },
-      occation2: { time: '09:00-12:00', reserved: false },
-      occation3: { time: '12:00-15:00', reserved: false },
-      occation4: { time: '15:00-18:00', reserved: false },
+      occasion1: { time: '06:00-09:00', reserved: false },
+      occasion2: { time: '09:00-12:00', reserved: false },
+      occasion3: { time: '12:00-15:00', reserved: false },
+      occasion4: { time: '15:00-18:00', reserved: false },
     }
   }
   render() {
