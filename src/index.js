@@ -37,6 +37,15 @@ class Root extends React.Component {
       .filter((bookedOccasion) => bookedOccasion.weekday === weekday)
     return bookings.map((booking) => booking.occasionIndex)
   }
+  onBooking(weekNumber, weekday, occasionIndex) {
+    this.setState((prev) => ({
+      bookedOccasions: [...prev.bookedOccasions, {
+        weekNumber: weekNumber,
+        weekday: weekday,
+        occasionIndex: occasionIndex
+      }]
+    }))
+  }
   render() {
     return (
       <div>
@@ -54,6 +63,7 @@ class Root extends React.Component {
             return (
               <li>
                 <Day
+                  onBooking={(occasionIndex) => this.onBooking(this.state.weekNumber, weekday.name, occasionIndex)}
                   bookedOccasions={this.sortBookedOccasions(this.state.weekNumber, weekday.name)}
                   weekNumber={this.state.weekNumber}
                   weekday={weekday.name}

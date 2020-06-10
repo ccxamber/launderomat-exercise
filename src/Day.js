@@ -8,13 +8,7 @@ const defaultOccasions = [
 ]
 
 class Day extends React.Component {
-  onBooking(weekNumber, weekday) {
-    console.log(weekday)
-    console.log(weekNumber)
-
-  }
   buildDay(bookedOccasions) {
-    console.log(bookedOccasions)
     if (bookedOccasions.length === 0) {
       return defaultOccasions
     } else {
@@ -31,12 +25,12 @@ class Day extends React.Component {
     return (
       <div>
         <h1>{this.props.weekday}</h1>
-        {this.props.open ? day.map((occasion) => {
+        {this.props.open ? day.map((occasion, index) => {
           return (
             <div>
               <p>{occasion.time}</p>
               <button
-                onClick={() => this.onBooking(this.props.weekNumber, this.props.weekday)}
+                onClick={() => this.props.onBooking(index)}
                 disabled={occasion.reserved
                 }>
                 boka</button>
