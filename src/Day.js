@@ -14,7 +14,7 @@ class Day extends React.Component {
     return (
       <div>
         <h1>{this.props.weekday}</h1>
-        {Object.keys(this.state).map((key) => {
+        {this.props.open ? Object.keys(this.state).map((key) => {
           return (
             <div>
               <p>{this.state[key].time}</p>
@@ -24,7 +24,11 @@ class Day extends React.Component {
                 boka</button>
             </div>
           )
-        })}
+        }) :
+          <div>
+            <p>Stängt</p>
+          </div>
+        }
       </div>
 
     )

@@ -4,13 +4,13 @@ import ReactDOM from 'react-dom'
 import Day from './Day'
 
 const weekdays = [
-  { weekday: 'Måndag', open: true },
-  { weekday: 'Tisdag', open: true },
-  { weekday: 'Onsdag', open: true },
-  { weekday: 'Torsdag', open: true },
-  { weekday: 'Fredag', open: true },
-  { weekday: 'Lördag', open: false },
-  { weekday: 'Söndag', open: false },
+  { name: 'Måndag', open: true },
+  { name: 'Tisdag', open: true },
+  { name: 'Onsdag', open: true },
+  { name: 'Torsdag', open: true },
+  { name: 'Fredag', open: true },
+  { name: 'Lördag', open: false },
+  { name: 'Söndag', open: false },
 ]
 
 class Root extends React.Component {
@@ -20,7 +20,10 @@ class Root extends React.Component {
         {weekdays.map((weekday) => {
           return (
             <li>
-              <Day weekday={weekday.weekday} />
+              <Day
+                weekday={weekday.name}
+                open={weekday.open}
+              />
             </li>
           )
         })}
