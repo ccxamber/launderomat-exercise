@@ -2,6 +2,7 @@ import React from 'react'
 import { css } from 'emotion'
 
 import Button from './Button'
+
 const styles = {
   modalContainer: css`
     position: fixed;
@@ -53,10 +54,12 @@ class Modal extends React.Component {
             <label>E-post</label>
             <input className={styles.input} type="email" />
           </div>
-          <button onClick={() => this.props.onCancel()}
-          >x</button>
-          <button onClick={() => this.props.onBookingett()}
-          >Boka</button>
+          <Button
+            onClick={() => this.props.onCancel()}
+            type='cancel'
+          >Avbryt</Button>
+          <Button onClick={() => this.props.onBookingett()}
+          >Boka</Button>
         </div>
       </div>
     )
