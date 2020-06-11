@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import Day from './Day'
 import Modal from './Modal'
 
+const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 const weekdays = [
   { name: 'Måndag', open: true },
@@ -19,6 +20,8 @@ class Root extends React.Component {
   constructor() {
     super()
     this.state = {
+      emailInput: { regex: emailRegex, value: '', valid: null },
+      nameInput: { regex: /^[a-zåäö]+$/i, value: '', valid: null },
       stagedOccasion: null,
       weekNumber: 24,
       bookedOccasions: [{ weekNumber: 24, weekday: 'Måndag', occasionIndex: 2 }]
@@ -40,20 +43,52 @@ class Root extends React.Component {
     return bookings.map((booking) => booking.occasionIndex)
   }
   onBooking(weekNumber, weekday, occasionIndex) {
-    this.setState((prev) => ({
-      bookedOccasions: [...prev.bookedOccasions, {
-        weekNumber: weekNumber,
-        weekday: weekday,
-        occasionIndex: occasionIndex
-      }]
-    }))
-    this.setState(() => ({ stagedOccasion: null }))
+    const keyArray = ['nameInput', 'emailInput']
+    Promise.all(keyArray.map((key) => this.validateField(key))).then(() => {
+      if (this.validateForm()) {
+        this.setState((prev) => ({
+          bookedOccasions: [...prev.bookedOccasions, {
+            weekNumber: weekNumber,
+            weekday: weekday,
+            occasionIndex: occasionIndex
+          }]
+        }))
+        this.setState(() => ({ stagedOccasion: null }))
+      } else {
+        console.log('no')
+      }
+    })
   }
   onBookingCancel() {
     this.setState({ stagedOccasion: null })
   }
+  onInputChange(key, value) {
+    this.setState(
+      (prev) => ({ [key]: { ...prev[key], value: value } })
+    )
+    console.log(value)
+  }
   onStage(weekday, occasionIndex) {
     this.setState({ stagedOccasion: { weekday: weekday, occasionIndex: occasionIndex } })
+  }
+  validateField(key) {
+    return new Promise((resolve) => {
+      this.setState((prev) => {
+        return {
+          [key]: {
+            ...prev[key],
+            valid: prev[key].regex.test(this.state[key].value)
+          }
+        }
+      }, resolve)
+    })
+  }
+  validateForm() {
+    const { emailInput, nameInput } = this.state
+    const inputArray = [emailInput, nameInput,]
+    return inputArray.every((input) => {
+      return input.valid
+    })
   }
   render() {
     return (
@@ -84,6 +119,7 @@ class Root extends React.Component {
         </ul>
         {!(this.state.stagedOccasion === null) && (
           <Modal
+            onInputChange={(key, value) => this.onInputChange(key, value)}
             onCancel={() => this.onBookingCancel()}
             onBookingett={() => this.onBooking(this.state.weekNumber, this.state.stagedOccasion.weekday, this.state.stagedOccasion.occasionIndex)}
           />

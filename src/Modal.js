@@ -48,11 +48,13 @@ class Modal extends React.Component {
         <div className={styles.modalContent}>
           <div className={styles.inputContainer}>
             <label>Namn</label>
-            <input className={styles.input} type="text" />
+            <input onChange={(event) => this.props.onInputChange('nameInput', event.target.value)}
+              className={styles.input} type="text" />
           </div>
           <div className={styles.inputContainer}>
             <label>E-post</label>
-            <input className={styles.input} type="email" />
+            <input onChange={(event) => this.props.onInputChange('emailInput', event.target.value)}
+              className={styles.input} type="email" />
           </div>
           <Button
             onClick={() => this.props.onCancel()}
