@@ -24,7 +24,7 @@ class Root extends React.Component {
       nameInput: { regex: /^[a-zåäö]+$/i, value: '', valid: null },
       stagedOccasion: null,
       weekNumber: 24,
-      bookedOccasions: [{ weekNumber: 24, weekday: 'Måndag', occasionIndex: 2 }]
+      bookedOccasions: []
     }
   }
   changeWeekNumber(direction) {
@@ -37,10 +37,12 @@ class Root extends React.Component {
     }
   }
   sortBookedOccasions(weekNumber, weekday) {
-    const bookings = this.state.bookedOccasions
-      .filter((bookedOccasion) => bookedOccasion.weekNumber === weekNumber)
-      .filter((bookedOccasion) => bookedOccasion.weekday === weekday)
-    return bookings.map((booking) => booking.occasionIndex)
+    if (this.state.bookedOccasions) {
+      const bookings = this.state.bookedOccasions
+        .filter((bookedOccasion) => bookedOccasion.weekNumber === weekNumber)
+        .filter((bookedOccasion) => bookedOccasion.weekday === weekday)
+      return bookings.map((booking) => booking.occasionIndex)
+    }
   }
   onBooking(weekNumber, weekday, occasionIndex) {
     const keyArray = ['nameInput', 'emailInput']
@@ -50,10 +52,15 @@ class Root extends React.Component {
           bookedOccasions: [...prev.bookedOccasions, {
             weekNumber: weekNumber,
             weekday: weekday,
-            occasionIndex: occasionIndex
+            occasionIndex: occasionIndex,
+            name: this.state.nameInput.value,
+            email: this.state.emailInput.value
           }]
         }))
+        console.log(this.state)
         this.setState(() => ({ stagedOccasion: null }))
+        this.setState((prev) => ({ emailInput: { ...prev.emailInput, value: '' } }))
+        this.setState((prev) => ({ nameInput: { ...prev.nameInput, value: '' } }))
       } else {
         console.log('no')
       }
@@ -66,7 +73,6 @@ class Root extends React.Component {
     this.setState(
       (prev) => ({ [key]: { ...prev[key], value: value } })
     )
-    console.log(value)
   }
   onStage(weekday, occasionIndex) {
     this.setState({ stagedOccasion: { weekday: weekday, occasionIndex: occasionIndex } })
