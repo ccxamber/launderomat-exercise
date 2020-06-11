@@ -49,6 +49,9 @@ class Root extends React.Component {
     }))
     this.setState(() => ({ stagedOccasion: null }))
   }
+  onBookingCancel() {
+    this.setState({ stagedOccasion: null })
+  }
   onStage(weekday, occasionIndex) {
     this.setState({ stagedOccasion: { weekday: weekday, occasionIndex: occasionIndex } })
   }
@@ -81,6 +84,7 @@ class Root extends React.Component {
         </ul>
         {!(this.state.stagedOccasion === null) && (
           <Modal
+            onCancel={() => this.onBookingCancel()}
             onBookingett={() => this.onBooking(this.state.weekNumber, this.state.stagedOccasion.weekday, this.state.stagedOccasion.occasionIndex)}
           />
         )}
