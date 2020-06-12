@@ -1,8 +1,39 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { css, injectGlobal } from 'emotion'
 
 import Day from './Day'
 import Modal from './Modal'
+import Button from './Button'
+
+injectGlobal`
+  *{
+    box-sizing: border-box;
+  }
+  body {
+    padding: 0;
+    margin: 0;
+  }
+`
+
+const styles = {
+  header: css`
+    display: flex;
+    text-align: center;
+    justify-content: center;
+  `,
+  headerH1: css`
+    margin: 0px;
+  `,
+  week: css`
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+  `,
+}
 
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
@@ -99,19 +130,19 @@ class Root extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <button
+        <div className={styles.header}>
+          <Button
             onClick={() => this.changeWeekNumber(-1)}
-          >&lt;</button>
-          <h1>{this.state.weekNumber}</h1>
-          <button
+          >&lt;</Button>
+          <h1 className={styles.headerH1}>{this.state.weekNumber}</h1>
+          <Button
             onClick={() => this.changeWeekNumber(+1)}
-          >&gt;</button>
+          >&gt;</Button>
         </div>
-        <ul>
+        <ul className={styles.week}>
           {weekdays.map((weekday) => {
             return (
-              <li>
+              <li className={styles.li}>
                 <Day
                   onStage={(occasionIndex) => this.onStage(weekday.name, occasionIndex)}
                   bookedOccasions={this.sortBookedOccasions(this.state.weekNumber, weekday.name)}

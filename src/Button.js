@@ -4,13 +4,13 @@ import React from 'react'
 
 const getStyle = (type) => {
   const style = css`
-    padding: 15px 30px;
+    padding: ${ type === 'small' ? '5px 10px' : '15px 30px'};
     border: none;
-    margin: 0px 20px;
+    margin: ${ type === 'small' ? '0px' : '0px 20px'};
     border-radius: 5px;
     background-color: ${type === 'cancel' ? 'red' : 'green'};
     color: white;
-    font-size: 18px;
+    font-size: ${ type === 'small' ? 'auto' : '18px'};
     &:disabled {
       background-color: gray;
     }

@@ -5,7 +5,7 @@ import Button from './Button'
 
 const styles = {
   content: css`
-  text-align: left;
+    text-align: left;
     display: block;
     box-sizing: border-box;
     min-width: 100px;
@@ -51,6 +51,7 @@ class Day extends React.Component {
             <div className={styles.body}>
               <p className={styles.p}>{occasion.time}</p>
               <Button
+                type={'small'}
                 onClick={() => this.props.onStage(index)}
                 disable={occasion.reserved
                 }>
