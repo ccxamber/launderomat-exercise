@@ -1,4 +1,15 @@
 import React from 'react'
+import { css } from 'emotion'
+
+const styles = {
+  dayContent: css`
+    margin: 20;
+  `,
+  h1: css`
+    font-size: 16px;
+  `,
+
+}
 
 const defaultOccasions = [
   { time: '06:00-09:00', reserved: false },
