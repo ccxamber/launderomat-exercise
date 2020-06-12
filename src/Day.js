@@ -1,13 +1,23 @@
 import React from 'react'
 import { css } from 'emotion'
 
+import Button from './Button'
+
 const styles = {
-  dayContent: css`
-    margin: 20;
+  content: css`
+  text-align: left;
+    display: block;
+    box-sizing: border-box;
+    min-width: 100px;
   `,
   h1: css`
-    font-size: 16px;
+    font-size: 22px;
   `,
+  body: css`
+    display: block;
+  `,
+
+
 
 }
 
@@ -34,17 +44,17 @@ class Day extends React.Component {
   render() {
     const day = this.buildDay(this.props.bookedOccasions)
     return (
-      <div>
-        <h1>{this.props.weekday}</h1>
+      <div className={styles.content}>
+        <h1 className={styles.h1}>{this.props.weekday}</h1>
         {this.props.open ? day.map((occasion, index) => {
           return (
-            <div>
-              <p>{occasion.time}</p>
-              <button
+            <div className={styles.body}>
+              <p className={styles.p}>{occasion.time}</p>
+              <Button
                 onClick={() => this.props.onStage(index)}
-                disabled={occasion.reserved
+                disable={occasion.reserved
                 }>
-                boka</button>
+                boka</Button>
             </div>
           )
         }) :

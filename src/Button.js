@@ -11,6 +11,9 @@ const getStyle = (type) => {
     background-color: ${type === 'cancel' ? 'red' : 'green'};
     color: white;
     font-size: 18px;
+    &:disabled {
+      background-color: gray;
+    }
   `
   return style
 }
@@ -23,6 +26,7 @@ class Button extends React.Component {
       <button
         className={style}
         onClick={this.props.onClick}
+        disabled={this.props.disable}
       >
         {this.props.children}
       </button>
